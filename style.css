@@ -67,3 +67,30 @@ body {
     border-radius: 8px;
     padding: 30px;
 }
+
+/* ======== STAT CARDS ======== */
+.stats-row {
+    display: flex;
+    gap: 20px;
+}
+
+.stat-card {
+    flex: 1;
+    background-color: #333333;
+    border-radius: 8px;
+    padding: 20px;
+    border-top: 4px solid #cc0000;
+}
+
+.stat-label {
+    font-size: 13px;
+    color: #aaaaaa;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.stat-number {
+    font-size: 32px;
+    color: #ffffff;
+}
