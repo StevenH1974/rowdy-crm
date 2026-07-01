@@ -145,3 +145,19 @@ body {
 .orders-table tr:hover td {
     background-color: #FFF3D1;
 }
+
+/* ========== SECTIONS ========== */
+.section {
+    display: none;
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 30px;
+}
+
+/* ========== ACTIVE NAV LINK ========== */
+.sidebar nav a.active {
+    background-color: #E21A1A;
+    color: #ffffff;
+}
+
