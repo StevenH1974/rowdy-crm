@@ -269,8 +269,61 @@
 
 <!-- ========== REPORTS SECTION ========== -->
 <div class="section" id="reports">
-    <h3 class="section-title">Reports</h3>
-    <p>Reports content coming soon.</p>
+    <div class="section-header">
+        <h3 class="section-title">Reports</h3>
+    </div>
+
+    <!-- Report Type Selector -->
+    <div class="report-selector">
+        <button class="filter-btn active" onclick="showReport('sales')">Sales</button>
+        <button class="filter-btn" onclick="showReport('orders')">Orders</button>
+        <button class="filter-btn" onclick="showReport('inventory')">Inventory</button>
+        <button class="filter-btn" onclick="showReport('revenue')">Revenue by Month</button>
+        <button class="filter-btn" onclick="showReport('customers')">Customer Acquisition</button>
+        <button class="filter-btn" onclick="showReport('shipping')">Shipping Costs</button>
+    </div>
+
+    <!-- Report Summary Cards -->
+    <div class="report-stats" id="report-stats">
+        <div class="report-stat-card">
+            <p class="stat-label">Total Sales</p>
+            <h3 class="stat-number">$0.00</h3>
+        </div>
+        <div class="report-stat-card">
+            <p class="stat-label">Total Orders</p>
+            <h3 class="stat-number">0</h3>
+        </div>
+        <div class="report-stat-card">
+            <p class="stat-label">Average Order Value</p>
+            <h3 class="stat-number">$0.00</h3>
+        </div>
+    </div>
+
+    <!-- Report Table -->
+    <table class="orders-table" style="margin-top: 30px;">
+        <thead id="report-thead">
+            <tr>
+                <th>Date</th>
+                <th>Orders</th>
+                <th>Revenue</th>
+                <th>Top Product</th>
+            </tr>
+        </thead>
+        <tbody id="report-tbody">
+            <tr>
+                <td>07/01/2026</td>
+                <td>2</td>
+                <td>$23.98</td>
+                <td>Classic Butter - Large</td>
+            </tr>
+            <tr>
+                <td>06/30/2026</td>
+                <td>1</td>
+                <td>$24.99</td>
+                <td>Bundle Pack x2</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 
 <!-- ========== DOCUMENTS SECTION ========== -->
