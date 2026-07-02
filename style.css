@@ -146,6 +146,65 @@ body {
     background-color: #FFF3D1;
 }
 
+/* ========== SECTION HEADER ========== */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* ========== FILTER BAR ========== */
+.filter-bar {
+    display: flex;
+    gap: 10px;
+}
+
+.filter-btn {
+    padding: 8px 16px;
+    border: 2px solid #E21A1A;
+    background-color: transparent;
+    color: #E21A1A;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.filter-btn.active {
+    background-color: #E21A1A;
+    color: #ffffff;
+}
+
+.filter-btn:hover {
+    background-color: #E21A1A;
+    color: #ffffff;
+}
+
+/* ========== STATUS BADGES ========== */
+.status-badge {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.status-badge.new {
+    background-color: #FFC72C;
+    color: #111111;
+}
+
+.status-badge.processing {
+    background-color: #FF6A00;
+    color: #ffffff;
+}
+
+.status-badge.shipped {
+    background-color: #2E8B57;
+    color: #ffffff;
+}
+
 /* ========== SECTIONS ========== */
 .section {
     display: none;

@@ -83,10 +83,56 @@
             </table>
         </div>
     </div>
+
     <!-- ========== ORDERS SECTION ========== -->
 <div class="section" id="orders">
-    <h3 class="section-title">Orders</h3>
-    <p>Orders content coming soon.</p>
+    <div class="section-header">
+        <h3 class="section-title">Orders</h3>
+        <div class="filter-bar">
+            <button class="filter-btn active" onclick="filterOrders('all')">All</button>
+            <button class="filter-btn" onclick="filterOrders('new')">New</button>
+            <button class="filter-btn" onclick="filterOrders('processing')">Processing</button>
+            <button class="filter-btn" onclick="filterOrders('shipped')">Shipped</button>
+        </div>
+    </div>
+    <table class="orders-table">
+        <thead>
+            <tr>
+                <th>Order #</th>
+                <th>Customer</th>
+                <th>Product</th>
+                <th>Total</th>
+                <th>Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody id="orders-tbody">
+            <tr data-status="new">
+                <td>#1001</td>
+                <td>Jane Smith</td>
+                <td>Classic Butter - Large</td>
+                <td>$12.99</td>
+                <td>07/01/2026</td>
+                <td><span class="status-badge new">New</span></td>
+            </tr>
+            <tr data-status="processing">
+                <td>#1002</td>
+                <td>Mike Johnson</td>
+                <td>Spicy Cheddar - Medium</td>
+                <td>$10.99</td>
+                <td>07/01/2026</td>
+                <td><span class="status-badge processing">Processing</span></td>
+            </tr>
+            <tr data-status="shipped">
+                <td>#1003</td>
+                <td>Sarah Lee</td>
+                <td>Bundle Pack x2</td>
+                <td>$24.99</td>
+                <td>06/30/2026</td>
+                <td><span class="status-badge shipped">Shipped</span></td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 
 <!-- ========== INVENTORY SECTION ========== -->

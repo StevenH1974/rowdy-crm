@@ -30,3 +30,26 @@ function showSection(sectionId) {
     // Update the top bar title
     document.querySelector('.top-bar h2').textContent = sectionId.toUpperCase();
 }
+
+// ========== ORDER FILTERING ==========
+function filterOrders(status) {
+    // Update active filter button
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    event.target.classList.add('active');
+
+    // Show or hide rows based on status
+    document.querySelectorAll('#orders-tbody tr').forEach(row => {
+        if (status === 'all') {
+            row.style.display = '';
+        } else {
+            if (row.dataset.status === status) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        }
+    });
+}
+
