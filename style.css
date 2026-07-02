@@ -301,7 +301,18 @@ body {
     border-top: 4px solid #E21A1A;
 }
 
+/* ========== DOCUMENTS ========== */
+.doc-link {
+    color: #E21A1A;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 13px;
+}
 
+.doc-link:hover {
+    color: #C41010;
+    text-decoration: underline;
+}
 
 /* ========== SECTIONS ========== */
 .section {
