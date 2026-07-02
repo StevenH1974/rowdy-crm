@@ -205,6 +205,22 @@ body {
     color: #ffffff;
 }
 
+/* ========== ADD BUTTON ========== */
+.add-btn {
+    padding: 10px 20px;
+    background-color: #E21A1A;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.add-btn:hover {
+    background-color: #C41010;
+}
+
 /* ========== SECTIONS ========== */
 .section {
     display: none;
