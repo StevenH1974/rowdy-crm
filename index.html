@@ -193,8 +193,78 @@
 
 <!-- ========== PRICING SECTION ========== -->
 <div class="section" id="pricing">
-    <h3 class="section-title">Pricing & Costing</h3>
-    <p>Pricing content coming soon.</p>
+    <div class="section-header">
+        <h3 class="section-title">Pricing & Costing</h3>
+    </div>
+
+    <!-- Margin Calculator -->
+    <div class="calculator-card">
+        <h4 class="calculator-title">Margin Calculator</h4>
+        <div class="calculator-inputs">
+            <div class="calc-field">
+                <label>Cost to Produce ($)</label>
+                <input type="number" id="cost-input" placeholder="0.00" />
+            </div>
+            <div class="calc-field">
+                <label>Selling Price ($)</label>
+                <input type="number" id="price-input" placeholder="0.00" />
+            </div>
+            <button class="add-btn" onclick="calculateMargin()">Calculate</button>
+        </div>
+        <div class="calculator-result" id="margin-result">
+            Enter your cost and selling price to calculate margin.
+        </div>
+    </div>
+
+    <!-- Pricing Table -->
+    <table class="orders-table" style="margin-top: 30px;">
+        <thead>
+            <tr>
+                <th>Flavor</th>
+                <th>Size</th>
+                <th>Cost to Produce</th>
+                <th>Selling Price</th>
+                <th>Profit Margin</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Broccoli Cheddar</td>
+                <td>Medium</td>
+                <td>$0.00</td>
+                <td>$0.00</td>
+                <td>0%</td>
+            </tr>
+            <tr>
+                <td>Bloody Mary</td>
+                <td>Medium</td>
+                <td>$0.00</td>
+                <td>$0.00</td>
+                <td>0%</td>
+            </tr>
+            <tr>
+                <td>Ballpark Condiments</td>
+                <td>Medium</td>
+                <td>$0.00</td>
+                <td>$0.00</td>
+                <td>0%</td>
+            </tr>
+            <tr>
+                <td>Chili Lime Margarita</td>
+                <td>Medium</td>
+                <td>$0.00</td>
+                <td>$0.00</td>
+                <td>0%</td>
+            </tr>
+            <tr>
+                <td>Sweet & Spicy BBQ</td>
+                <td>Medium</td>
+                <td>$0.00</td>
+                <td>$0.00</td>
+                <td>0%</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 
 <!-- ========== REPORTS SECTION ========== -->

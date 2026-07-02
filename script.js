@@ -53,3 +53,24 @@ function filterOrders(status) {
     });
 }
 
+// ========== MARGIN CALCULATOR ==========
+function calculateMargin() {
+    const cost = parseFloat(document.getElementById('cost-input').value);
+    const price = parseFloat(document.getElementById('price-input').value);
+    const resultBox = document.getElementById('margin-result');
+
+    if (isNaN(cost) || isNaN(price)) {
+        resultBox.textContent = 'Please enter valid numbers for both fields.';
+        return;
+    }
+
+    if (price === 0) {
+        resultBox.textContent = 'Selling price cannot be zero.';
+        return;
+    }
+
+    const profit = price - cost;
+    const margin = ((profit / price) * 100).toFixed(2);
+
+    resultBox.textContent = `Profit: $${profit.toFixed(2)} | Margin: ${margin}%`;
+}
