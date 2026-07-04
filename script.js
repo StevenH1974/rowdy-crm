@@ -1,3 +1,39 @@
+// ========== FORMAT DATE ==========
+function formatDate(dateStr) {
+    const [year, month, day] = dateStr.split('-');
+    return `${month}/${day}/${year}`;
+}
+
+// ========== LOAD ORDERS FROM SUPABASE ==========
+async function loadOrders() {
+    const { data, error } = await supabaseClient
+        .from('orders')
+        .select('*')
+        .order('order_date', { ascending: false });
+
+    if (error) {
+        console.error('Error loading orders:', error);
+        return;
+    }
+
+    const tbody = document.getElementById('orders-tbody');
+    tbody.innerHTML = '';
+
+    data.forEach(order => {
+        const row = document.createElement('tr');
+        row.dataset.status = order.status;
+        row.innerHTML = `
+            <td>#${order.id}</td>
+            <td>${order.customer_name}</td>
+            <td>${order.product}</td>
+            <td>$${order.total}</td>
+            <td>${formatDate(order.order_date)}</td>
+            <td><span class="status-badge ${order.status}">${order.status}</span></td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
 // ========== SECTION NAVIGATION ==========
 function showSection(sectionId) {
     
@@ -19,10 +55,15 @@ function showSection(sectionId) {
     if (sectionId === 'dashboard') {
         document.querySelector('.stats-row').style.display = 'flex';
         document.querySelector('.recent-orders').style.display = 'block';
-    } else {
-        // Show the selected section
-        document.getElementById(sectionId).style.display = 'block';
+   } else {
+    // Show the selected section
+    document.getElementById(sectionId).style.display = 'block';
+
+    // Load live data depending on section
+    if (sectionId === 'orders') {
+        loadOrders();
     }
+}
 
     // Set the active nav link
     event.target.classList.add('active');
