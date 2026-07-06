@@ -34,6 +34,17 @@ async function loadOrders() {
     });
 }
 
+// ========== GET STOCK STATUS ==========
+function getStockStatus(quantity) {
+    if (quantity === 0) {
+        return 'out';
+    } else if (quantity <= 9) {
+        return 'low';
+    } else {
+        return 'ok';
+    }
+}
+
 // ========== LOAD INVENTORY FROM SUPABASE ==========
 async function loadInventory() {
     const { data, error } = await supabaseClient
@@ -42,7 +53,7 @@ async function loadInventory() {
         .order('flavor', { ascending: true });
 
     if (error) {
-        console.error('Error loading inventory:', error);
+        console.error('Error loading inventory:', JSON.stringify(error));
         return;
     }
 
@@ -56,7 +67,7 @@ async function loadInventory() {
             <td>${item.flavor}</td>
             <td>${item.size}</td>
             <td>${item.quantity}</td>
-            <td><span class="status-badge ${item.status}">${item.status.toUpperCase()}</span></td>
+         <td><span class="status-badge ${getStockStatus(item.quantity)}">${getStockStatus(item.quantity).toUpperCase()}</span></td>
         `;
         tbody.appendChild(row);
     });

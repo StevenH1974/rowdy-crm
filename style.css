@@ -205,6 +205,21 @@ body {
     color: #ffffff;
 }
 
+.status-badge.ok {
+    background-color: #2E8B57;
+    color: #ffffff;
+}
+
+.status-badge.low {
+    background-color: #FF6A00;
+    color: #ffffff;
+}
+
+.status-badge.out {
+    background-color: #FFC72C;
+    color: #111111;
+}
+
 /* ========== ADD BUTTON ========== */
 .add-btn {
     padding: 10px 20px;
