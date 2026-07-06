@@ -34,6 +34,34 @@ async function loadOrders() {
     });
 }
 
+// ========== LOAD INVENTORY FROM SUPABASE ==========
+async function loadInventory() {
+    const { data, error } = await supabaseClient
+        .from('inventory')
+        .select('*')
+        .order('flavor', { ascending: true });
+
+    if (error) {
+        console.error('Error loading inventory:', error);
+        return;
+    }
+
+    const tbody = document.querySelector('#inventory .orders-table tbody');
+    tbody.innerHTML = '';
+
+    data.forEach(item => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>Popcorn</td>
+            <td>${item.flavor}</td>
+            <td>${item.size}</td>
+            <td>${item.quantity}</td>
+            <td><span class="status-badge ${item.status}">${item.status.toUpperCase()}</span></td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
 // ========== SECTION NAVIGATION ==========
 function showSection(sectionId) {
     
@@ -62,6 +90,8 @@ function showSection(sectionId) {
     // Load live data depending on section
     if (sectionId === 'orders') {
         loadOrders();
+    } else if (sectionId === 'inventory') {
+        loadInventory();
     }
 }
 
