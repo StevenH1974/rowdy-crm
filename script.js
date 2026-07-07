@@ -1,3 +1,59 @@
+// ========== LOAD DASHBOARD ==========
+async function loadDashboard() {
+
+    // Fetch all orders from Supabase
+    const { data: orders, error } = await supabaseClient
+        .from('orders')
+        .select('*')
+        .order('order_date', { ascending: false });
+
+    if (error) {
+        console.error('Error loading dashboard:', JSON.stringify(error));
+        return;
+    }
+
+    // Total Orders
+    document.querySelector('.stat-card:nth-child(1) .stat-number').textContent = orders.length;
+
+    // Revenue This Month
+    const now = new Date();
+    const thisMonth = now.getMonth();
+    const thisYear = now.getFullYear();
+    const monthlyOrders = orders.filter(order => {
+    const [year, month] = order.order_date.split('-');
+    return parseInt(month) - 1 === thisMonth && parseInt(year) === thisYear;
+});
+    const revenue = monthlyOrders.reduce((sum, order) => sum + parseFloat(order.total), 0);
+    document.querySelector('.stat-card:nth-child(2) .stat-number').textContent = '$' + revenue.toFixed(2);
+
+    // Fetch inventory alerts
+    const { data: inventory } = await supabaseClient
+        .from('inventory')
+        .select('*');
+    const alerts = inventory.filter(item => getStockStatus(item.quantity) === 'low' || getStockStatus(item.quantity) === 'out');
+    document.querySelector('.stat-card:nth-child(3) .stat-number').textContent = alerts.length;
+
+    // New Customers This Month
+    const newCustomers = monthlyOrders.length;
+    document.querySelector('.stat-card:nth-child(4) .stat-number').textContent = newCustomers;
+
+    // Recent Orders Table
+    const recentOrders = orders.slice(0, 5);
+    const tbody = document.querySelector('.recent-orders tbody');
+    tbody.innerHTML = '';
+    recentOrders.forEach(order => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>#${order.id}</td>
+            <td>${order.customer_name}</td>
+            <td>${order.product}</td>
+            <td>$${order.total}</td>
+            <td><span class="status-badge ${order.status}">${order.status}</span></td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
 // ========== FORMAT DATE ==========
 function formatDate(dateStr) {
     const [year, month, day] = dateStr.split('-');
@@ -235,3 +291,6 @@ function showReport(type) {
             <tr><td>06/30/2026</td><td>0</td><td>$0.00</td><td>$0.00</td></tr>`;
     }
 }
+
+// ========== INITIALIZE ==========
+loadDashboard();
