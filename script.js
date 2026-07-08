@@ -150,17 +150,20 @@ function showSection(sectionId) {
     if (sectionId === 'dashboard') {
         document.querySelector('.stats-row').style.display = 'flex';
         document.querySelector('.recent-orders').style.display = 'block';
-   } else {
-    // Show the selected section
-    document.getElementById(sectionId).style.display = 'block';
+        loadDashboard();
+    } else {
+        // Show the selected section
+        document.getElementById(sectionId).style.display = 'block';
 
-    // Load live data depending on section
-    if (sectionId === 'orders') {
-        loadOrders();
-    } else if (sectionId === 'inventory') {
-        loadInventory();
+        // Load live data depending on section
+        if (sectionId === 'orders') {
+            loadOrders();
+        } else if (sectionId === 'inventory') {
+            loadInventory();
+        } else if (sectionId === 'finances') {
+            showFinances('daily');
+        }
     }
-}
 
     // Set the active nav link
     event.target.classList.add('active');
@@ -289,6 +292,89 @@ function showReport(type) {
         tbody.innerHTML = `
             <tr><td>07/01/2026</td><td>0</td><td>$0.00</td><td>$0.00</td></tr>
             <tr><td>06/30/2026</td><td>0</td><td>$0.00</td><td>$0.00</td></tr>`;
+    }
+}
+
+// ========== FINANCES ==========
+async function showFinances(period) {
+    // Update active button
+    document.querySelectorAll('#finances .filter-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    event.target.classList.add('active');
+
+    // Fetch all orders from Supabase
+    const { data: orders, error } = await supabaseClient
+        .from('orders')
+        .select('*')
+        .order('order_date', { ascending: false });
+
+    if (error) {
+        console.error('Error loading finances:', JSON.stringify(error));
+        return;
+    }
+
+    const now = new Date();
+    let filtered = [];
+
+    if (period === 'daily') {
+        filtered = orders.filter(order => {
+            const [year, month, day] = order.order_date.split('-');
+            return parseInt(day) === now.getDate() &&
+                   parseInt(month) - 1 === now.getMonth() &&
+                   parseInt(year) === now.getFullYear();
+        });
+    } else if (period === 'weekly') {
+        const weekAgo = new Date(now);
+        weekAgo.setDate(now.getDate() - 7);
+        filtered = orders.filter(order => {
+            const orderDate = new Date(order.order_date);
+            return orderDate >= weekAgo;
+        });
+    } else if (period === 'monthly') {
+        filtered = orders.filter(order => {
+            const [year, month] = order.order_date.split('-');
+            return parseInt(month) - 1 === now.getMonth() &&
+                   parseInt(year) === now.getFullYear();
+        });
+    } else if (period === 'annual') {
+        filtered = orders.filter(order => {
+            const [year] = order.order_date.split('-');
+            return parseInt(year) === now.getFullYear();
+        });
+    } else if (period === 'ytd') {
+        filtered = orders.filter(order => {
+            const [year] = order.order_date.split('-');
+            return parseInt(year) === now.getFullYear();
+        });
+    }
+
+    // Calculate summary stats
+    const revenue = filtered.reduce((sum, order) => sum + parseFloat(order.total), 0);
+    const orderCount = filtered.length;
+    const avg = orderCount > 0 ? revenue / orderCount : 0;
+
+    document.getElementById('finance-revenue').textContent = '$' + revenue.toFixed(2);
+    document.getElementById('finance-orders').textContent = orderCount;
+    document.getElementById('finance-avg').textContent = '$' + avg.toFixed(2);
+
+    // Build table
+    const tbody = document.getElementById('finance-tbody');
+    tbody.innerHTML = '';
+
+    filtered.forEach(order => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${formatDate(order.order_date)}</td>
+            <td>#${order.id}</td>
+            <td>$${parseFloat(order.total).toFixed(2)}</td>
+            <td>${order.customer_name}</td>
+        `;
+        tbody.appendChild(row);
+    });
+
+    if (filtered.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="4">No orders found for this period.</td></tr>';
     }
 }
 

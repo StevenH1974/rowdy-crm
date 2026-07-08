@@ -17,6 +17,8 @@
     <a href="#" onclick="showSection('inventory')">Inventory</a>
     <a href="#" onclick="showSection('pricing')">Pricing & Costing</a>
     <a href="#" onclick="showSection('reports')">Reports</a>
+    <a href="#" onclick="showSection('finances')">Finances</a>
+    <a href="#" onclick="showSection('customers')">Customers</a>
     <a href="#" onclick="showSection('documents')">Documents</a>
 </nav>
 </div>
@@ -299,6 +301,110 @@
                 <td>1</td>
                 <td>$24.99</td>
                 <td>Bundle Pack x2</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- ========== FINANCES SECTION ========== -->
+<div class="section" id="finances">
+    <div class="section-header">
+        <h3 class="section-title">Finances</h3>
+    </div>
+
+    <!-- Time Period Selector -->
+    <div class="report-selector">
+        <button class="filter-btn active" onclick="showFinances('daily')">Daily</button>
+        <button class="filter-btn" onclick="showFinances('weekly')">Weekly</button>
+        <button class="filter-btn" onclick="showFinances('monthly')">Monthly</button>
+        <button class="filter-btn" onclick="showFinances('annual')">Annual</button>
+        <button class="filter-btn" onclick="showFinances('ytd')">Year to Date</button>
+    </div>
+
+    <!-- Finance Summary Cards -->
+    <div class="report-stats">
+        <div class="report-stat-card">
+            <p class="stat-label">Revenue</p>
+            <h3 class="stat-number" id="finance-revenue">$0.00</h3>
+        </div>
+        <div class="report-stat-card">
+            <p class="stat-label">Orders</p>
+            <h3 class="stat-number" id="finance-orders">0</h3>
+        </div>
+        <div class="report-stat-card">
+            <p class="stat-label">Average Order Value</p>
+            <h3 class="stat-number" id="finance-avg">$0.00</h3>
+        </div>
+    </div>
+
+    <!-- Finance Table -->
+    <table class="orders-table" style="margin-top: 30px;">
+        <thead id="finance-thead">
+            <tr>
+                <th>Date</th>
+                <th>Orders</th>
+                <th>Revenue</th>
+                <th>Average Order Value</th>
+            </tr>
+        </thead>
+        <tbody id="finance-tbody">
+        </tbody>
+    </table>
+</div>
+
+<!-- ========== CUSTOMERS SECTION ========== -->
+<div class="section" id="customers">
+    <div class="section-header">
+        <h3 class="section-title">Customers</h3>
+    </div>
+    <table class="orders-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Total Orders</th>
+                <th>Total Spent</th>
+                <th>Last Order</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody id="customers-tbody">
+            <tr>
+                <td>Jane Smith</td>
+                <td>jane@email.com</td>
+                <td>555-1234</td>
+                <td>1</td>
+                <td>$12.99</td>
+                <td>07/01/2026</td>
+                <td><span class="status-badge ok">Active</span></td>
+            </tr>
+            <tr>
+                <td>Mike Johnson</td>
+                <td>mike@email.com</td>
+                <td>555-5678</td>
+                <td>1</td>
+                <td>$10.99</td>
+                <td>07/01/2026</td>
+                <td><span class="status-badge ok">Active</span></td>
+            </tr>
+            <tr>
+                <td>Sarah Lee</td>
+                <td>sarah@email.com</td>
+                <td>555-9012</td>
+                <td>1</td>
+                <td>$24.99</td>
+                <td>06/30/2026</td>
+                <td><span class="status-badge ok">Active</span></td>
+            </tr>
+            <tr>
+                <td>Tom Brady</td>
+                <td>tom@email.com</td>
+                <td>555-3456</td>
+                <td>1</td>
+                <td>$10.99</td>
+                <td>07/07/2026</td>
+                <td><span class="status-badge ok">Active</span></td>
             </tr>
         </tbody>
     </table>
