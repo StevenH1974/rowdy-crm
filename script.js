@@ -262,16 +262,6 @@ function showReport(type) {
             <tr><td>Ballpark Condiments</td><td>Medium</td><td>0</td><td>Out</td></tr>
             <tr><td>Chili Lime Margarita</td><td>Medium</td><td>32</td><td>OK</td></tr>
             <tr><td>Sweet & Spicy BBQ</td><td>Medium</td><td>5</td><td>Low</td></tr>`;
-    } else if (type === 'revenue') {
-        thead.innerHTML = `<tr>
-            <th>Month</th>
-            <th>Revenue</th>
-            <th>Orders</th>
-            <th>vs Last Month</th>
-        </tr>`;
-        tbody.innerHTML = `
-            <tr><td>July 2026</td><td>$0.00</td><td>0</td><td>--</td></tr>
-            <tr><td>June 2026</td><td>$0.00</td><td>0</td><td>--</td></tr>`;
     } else if (type === 'customers') {
         thead.innerHTML = `<tr>
             <th>Month</th>
@@ -293,6 +283,27 @@ function showReport(type) {
             <tr><td>07/01/2026</td><td>0</td><td>$0.00</td><td>$0.00</td></tr>
             <tr><td>06/30/2026</td><td>0</td><td>$0.00</td><td>$0.00</td></tr>`;
     }
+}
+
+// ========== EXPORT REPORT ==========
+function exportReport() {
+    const headers = Array.from(document.querySelectorAll('#report-thead th'))
+        .map(th => th.textContent).join(',');
+    const rows = document.querySelectorAll('#report-tbody tr');
+    let csv = headers + '\n';
+
+    rows.forEach(row => {
+        const cells = Array.from(row.cells).map(td => td.textContent);
+        csv += cells.join(',') + '\n';
+    });
+
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'rowdy-report.csv';
+    a.click();
+    URL.revokeObjectURL(url);
 }
 
 // ========== FINANCES ==========
@@ -376,6 +387,27 @@ async function showFinances(period) {
     if (filtered.length === 0) {
         tbody.innerHTML = '<tr><td colspan="4">No orders found for this period.</td></tr>';
     }
+}
+
+// ========== EXPORT FINANCES ==========
+function exportFinances() {
+    const rows = document.querySelectorAll('#finance-tbody tr');
+    let csv = 'Date,Order,Revenue,Customer\n';
+
+    rows.forEach(row => {
+        if (row.style.display !== 'none') {
+            const cells = row.cells;
+            csv += `${cells[0].textContent},${cells[1].textContent},${cells[2].textContent},${cells[3].textContent}\n`;
+        }
+    });
+
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'rowdy-finances.csv';
+    a.click();
+    URL.revokeObjectURL(url);
 }
 
 // ========== FILTER CUSTOMERS ==========

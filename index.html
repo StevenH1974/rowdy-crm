@@ -250,15 +250,15 @@
 <!-- ========== REPORTS SECTION ========== -->
 <div class="section" id="reports">
     <div class="section-header">
-        <h3 class="section-title">Reports</h3>
-    </div>
+    <h3 class="section-title">Reports</h3>
+    <button class="add-btn" onclick="exportReport()">Export CSV</button>
+</div>
 
     <!-- Report Type Selector -->
     <div class="report-selector">
         <button class="filter-btn active" onclick="showReport('sales')">Sales</button>
         <button class="filter-btn" onclick="showReport('orders')">Orders</button>
         <button class="filter-btn" onclick="showReport('inventory')">Inventory</button>
-        <button class="filter-btn" onclick="showReport('revenue')">Revenue by Month</button>
         <button class="filter-btn" onclick="showReport('customers')">Customer Acquisition</button>
         <button class="filter-btn" onclick="showReport('shipping')">Shipping Costs</button>
     </div>
@@ -308,9 +308,13 @@
 
 <!-- ========== FINANCES SECTION ========== -->
 <div class="section" id="finances">
-    <div class="section-header">
-        <h3 class="section-title">Finances</h3>
+   <div class="section-header">
+    <h3 class="section-title">Finances</h3>
+    <div style="display: flex; gap: 10px;">
+        <button class="add-btn" onclick="exportFinances()">Export CSV</button>
+        <button class="add-btn" onclick="window.print()">Print</button>
     </div>
+</div>
 
     <!-- Time Period Selector -->
     <div class="report-selector">
