@@ -378,5 +378,46 @@ async function showFinances(period) {
     }
 }
 
+// ========== FILTER CUSTOMERS ==========
+function filterCustomers(segment) {
+    // Update active button
+    document.querySelectorAll('#customers .filter-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    event.target.classList.add('active');
+
+    const rows = document.querySelectorAll('#customers-tbody tr');
+    const now = new Date();
+
+    rows.forEach(row => {
+        const lastOrderCell = row.cells[5].textContent;
+        const totalSpentCell = parseFloat(row.cells[4].textContent.replace('$', ''));
+        const totalOrdersCell = parseInt(row.cells[3].textContent);
+
+        // Convert last order date to days ago
+        const [month, day, year] = lastOrderCell.split('/');
+        const lastOrderDate = new Date(`${year}-${month}-${day}`);
+        const daysAgo = Math.floor((now - lastOrderDate) / (1000 * 60 * 60 * 24));
+
+        let show = false;
+
+        if (segment === 'all') {
+            show = true;
+        } else if (segment === 'active') {
+            show = daysAgo <= 30;
+        } else if (segment === 'lapsed') {
+            show = daysAgo > 30 && daysAgo <= 90;
+        } else if (segment === 'inactive') {
+            show = daysAgo > 90;
+        } else if (segment === 'high-value') {
+            show = totalSpentCell >= 20;
+        } else if (segment === 'first-time') {
+            show = totalOrdersCell === 1;
+        }
+
+        row.style.display = show ? '' : 'none';
+    });
+}
+
 // ========== INITIALIZE ==========
 loadDashboard();

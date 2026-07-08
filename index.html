@@ -355,7 +355,15 @@
 <!-- ========== CUSTOMERS SECTION ========== -->
 <div class="section" id="customers">
     <div class="section-header">
-        <h3 class="section-title">Customers</h3>
+    <h3 class="section-title">Customers</h3>
+</div>
+    <div class="filter-bar" style="margin-bottom: 20px;">
+        <button class="filter-btn active" onclick="filterCustomers('all')">All</button>
+        <button class="filter-btn" onclick="filterCustomers('active')">Active</button>
+        <button class="filter-btn" onclick="filterCustomers('lapsed')">Lapsed</button>
+        <button class="filter-btn" onclick="filterCustomers('inactive')">Inactive</button>
+        <button class="filter-btn" onclick="filterCustomers('high-value')">High Value</button>
+        <button class="filter-btn" onclick="filterCustomers('first-time')">First Time</button>
     </div>
     <table class="orders-table">
         <thead>
