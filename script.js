@@ -419,5 +419,27 @@ function filterCustomers(segment) {
     });
 }
 
+// ========== EXPORT CUSTOMERS ==========
+function exportCustomers() {
+    const rows = document.querySelectorAll('#customers-tbody tr');
+    let csv = 'Name,Email,Phone,Total Orders,Total Spent,Last Order,Status\n';
+
+    rows.forEach(row => {
+        if (row.style.display !== 'none') {
+            const cells = row.cells;
+            const status = cells[6].querySelector('span').textContent;
+            csv += `${cells[0].textContent},${cells[1].textContent},${cells[2].textContent},${cells[3].textContent},${cells[4].textContent},${cells[5].textContent},${status}\n`;
+        }
+    });
+
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'rowdy-customers.csv';
+    a.click();
+    URL.revokeObjectURL(url);
+}
+
 // ========== INITIALIZE ==========
 loadDashboard();
